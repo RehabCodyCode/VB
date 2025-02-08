@@ -1,0 +1,38 @@
+private void SaveDataToDatabase()
+        {
+            String UpdateStr = " Update WKRooms Set ";
+            UpdateStr += " RmType = " + getType().ToString() + ",";
+            UpdateStr += " DimWdh = " + numericUpDown1.Value.ToString() + ",";
+            UpdateStr += " DimLen = " + numericUpDown2.Value.ToString() + ",";
+            UpdateStr += " DimHgt = " + numericUpDown3.Value.ToString() + ",";
+            UpdateStr += " CeilingTexture = '" +
+                     SHD.getVal("TextureID", "MstrTexture", " TxrDescp_" + SHD.Lng +" ='" + comboBox1.SelectedItem.ToString() + "'") + "',";
+            UpdateStr += " WallTexture = '" +
+                 SHD.getVal("TextureID", "MstrTexture", " TxrDescp_" + SHD.Lng +" ='" + comboBox2.SelectedItem.ToString() + "'") + "',";
+            UpdateStr += " FloorTexture = '" +
+                 SHD.getVal("TextureID", "MstrTexture", " TxrDescp_" + SHD.Lng +" ='" + comboBox3.SelectedItem.ToString() + "'") + "',";
+            UpdateStr += " Description_En = '" + textBox4.Text + "',";
+            UpdateStr += " Description_Ar = '" + textBox1.Text + "'";
+            UpdateStr += " Where RoomID ='" + RoomID + "'";
+            System.Console.WriteLine (UpdateStr);   
+            try
+            {
+               
+                SqlCommand cmd = new SqlCommand(UpdateStr, db);
+                db.Open();
+                cmd.ExecuteNonQuery();
+                db.Close();
+            }
+            catch (System.Exception Err)
+            {
+                MessageBox.Show(Err.Message.ToString());
+            }
+            finally
+            {
+                if (db != null)
+                {
+                    db.Close();
+                }
+            }
+            return;
+        }

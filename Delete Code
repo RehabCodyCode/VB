@@ -1,0 +1,17 @@
+private void splitContainer4_Panel2_DragDrop(object sender, DragEventArgs e)
+        {
+            // Recreate the object
+            if (e.Data.GetDataPresent(typeof(SHDFurn)) == true)
+            {
+                SHDFurn AddedSHDFurn = (SHDFurn)e.Data.GetData(typeof(SHDFurn));
+                foreach (Control c in this.panel1.Controls)
+                {
+                    if (c.Tag != null)
+                        if (c.Name == AddedSHDFurn.Name)
+                        {
+                           this.panel1.Controls.Remove(c);
+                        }
+                } 
+
+            }
+         }

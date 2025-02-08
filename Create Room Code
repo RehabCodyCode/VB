@@ -1,0 +1,35 @@
+private void SaveNewRoomToDatabase()
+        {
+            String InsertStr = "Insert into WKRooms (";
+            InsertStr += "DesginName , RoomID,  RmType, RmLvl, SwiteID, DimWdh ,DimLen, DimHgt, CeilingTexture ,WallTexture, FloorTexture, Description_En, Description_Ar) Values('";
+            InsertStr += SHD.DesginName + "','";
+            InsertStr += SHD.GenKey("Rooms") + "'," + getType().ToString() + ",";
+            InsertStr += SHD.getVal(" cast((RmLvl + 1) as varchar(3))", "WkRooms", "RoomID ='" + RoomID + "'");
+            InsertStr += ",'" + RoomID + "',";
+            InsertStr += numericUpDown1.Value.ToString() + ",";
+            InsertStr += numericUpDown2.Value.ToString() + ",";
+            InsertStr += numericUpDown3.Value.ToString() + ",'";
+            InsertStr += SHD.getVal("TextureID", "MstrTexture", " TxrDescp_" + SHD.Lng +" ='" + comboBox1.SelectedItem.ToString() + "'") + "','";
+            InsertStr += SHD.getVal("TextureID", "MstrTexture", " TxrDescp_" + SHD.Lng +" ='" + comboBox2.SelectedItem.ToString() + "'") + "','";
+            InsertStr += SHD.getVal("TextureID", "MstrTexture", " TxrDescp_" + SHD.Lng +" ='" + comboBox3.SelectedItem.ToString() + "'") + "','";
+            InsertStr += textBox4.Text + "','" + textBox1.Text + "')";
+            try
+            {
+                SqlCommand cmd = new SqlCommand(InsertStr, db);
+                db.Open();
+                cmd.ExecuteNonQuery();
+                db.Close();
+            }
+            catch (System.Exception Err)
+            {
+                MessageBox.Show(Err.Message.ToString());
+            }
+            finally
+            {
+                if (db != null)
+                {
+                    db.Close();
+                }
+            }
+            return;
+        }
